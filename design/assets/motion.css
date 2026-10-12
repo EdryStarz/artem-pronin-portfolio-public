@@ -1,0 +1,112 @@
+/* The hero owns its scene. A static poster is available before JS or video. */
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  background: url("video/olive-pearl-poster.webp") 72% center/cover no-repeat;
+  opacity: 0.1;
+  mask-image: linear-gradient(90deg, transparent, #000);
+}
+.ambient video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 72% center;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+.ambient.has-video video {
+  opacity: 1;
+}
+.hero .ambient {
+  position: absolute;
+  opacity: 1;
+  mask-image: none;
+}
+.hero .ambient::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, #f0eee7ee 0%, #f0eee7b8 38%, #f0eee715 77%),
+    linear-gradient(0deg, #f0eee7b8, transparent 30%);
+}
+:root[data-theme="dark"] .ambient {
+  opacity: 0.05;
+}
+:root[data-theme="dark"] .hero .ambient {
+  opacity: 1;
+  filter: brightness(0.55) saturate(0.6);
+}
+:root[data-theme="dark"] .hero .ambient::after {
+  background:
+    linear-gradient(90deg, #141713f7 0%, #141713c9 40%, #14171312 85%),
+    linear-gradient(0deg, #14171399, transparent 40%);
+}
+.motion-toggle {
+  position: fixed;
+  right: 24px;
+  bottom: 22px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 11px 16px;
+  font-size: 11px;
+  background: #eef0e8;
+  color: #22271e;
+  border: 1px solid #d1d7c7;
+  border-radius: 30px;
+  box-shadow: 0 3px 18px #0001;
+}
+.motion-toggle svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+.motion-toggle .play-icon {
+  display: none;
+}
+.motion-toggle[aria-pressed="false"] .play-icon {
+  display: block;
+}
+.motion-toggle[aria-pressed="false"] .pause-icon {
+  display: none;
+}
+.motion-toggle:disabled {
+  cursor: default;
+}
+@media (max-width: 767px) {
+  .hero .ambient {
+    background-position: 62% center;
+  }
+  .hero .ambient video {
+    object-position: 62% center;
+  }
+  .hero .ambient::after {
+    background:
+      linear-gradient(90deg, #f0eee7f0, #f0eee78c 66%, #f0eee740),
+      linear-gradient(0deg, #f0eee7aa, transparent 60%);
+  }
+  .motion-toggle {
+    right: 16px;
+    bottom: 16px;
+    padding: 10px 13px;
+  }
+}
+
+.home .motion-toggle {
+  position: absolute;
+  top: 190px;
+  bottom: auto;
+  right: var(--gutter);
+}
+@media (max-width: 767px) {
+  .home .motion-toggle {
+    top: 160px;
+  }
+}
